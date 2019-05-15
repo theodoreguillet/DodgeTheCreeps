@@ -6,15 +6,31 @@ signal player_hit
 export (int) var SPEED = 400
 export (bool) var CLAMP = false
 
+export (bool) var FORCE_CPU_PARTICLES = false
+
 var screenSize
 
 var velocity = Vector2()
 
+var particles: Node2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()
-	$Particles2D.emitting = false
 	
+	print("Video driver: " + OS.get_video_driver_name(OS.get_current_video_driver()))
+	if OS.get_name() == "HTML5" or FORCE_CPU_PARTICLES:
+		print("Working on web");
+		print("Using CPUParticles2D")
+		particles = $CPUParticles2D;
+		$Particles2D.emitting = false
+		$Particles2D.hide()
+	else :
+		print("Using Particles2D")
+		particles = $Particles2D;
+		$CPUParticles2D.emitting = false
+		$CPUParticles2D.hide()
+
 	screenSize = get_viewport_rect().size
 		
 	connect("body_entered", self, "onBodyEntered")
@@ -59,10 +75,9 @@ func _process(delta):
 		$AnimatedSprite.animation = "droite" if velocity.x != 0 else "haut"
 		$AnimatedSprite.flip_h = velocity.x < 0
 		$AnimatedSprite.flip_v = velocity.y > 0
-		$Particles2D.emitting = false
-		# $Particles2D.emitting = true
+		particles.emitting = true
 	else :
-		$Particles2D.emitting = false
+		particles.emitting = false
 
 func onBodyEntered(body: PhysicsBody2D) :
 	emit_signal("player_hit");

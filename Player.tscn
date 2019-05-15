@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/playerGrey_up1.png" type="Texture" id=2]
@@ -22,11 +22,16 @@ curve = SubResource( 3 )
 [sub_resource type="ParticlesMaterial" id=5]
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
-angular_velocity = 65396.6
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0.000275809, 0.5099 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=9]
+colors = PoolColorArray( 1, 1, 1, 0.235294, 1, 1, 1, 0 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -46,6 +51,7 @@ radius = 27.3265
 height = 13.5501
 
 [node name="Player" type="Area2D"]
+position = Vector2( 200, 200 )
 script = ExtResource( 1 )
 SPEED = 300
 
@@ -55,6 +61,17 @@ speed_scale = 3.0
 local_coords = false
 process_material = SubResource( 5 )
 texture = ExtResource( 2 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 10
+lifetime = 0.8
+speed_scale = 3.0
+local_coords = false
+texture = ExtResource( 2 )
+gravity = Vector2( 0, 0 )
+initial_velocity = 0.0
+scale_amount_curve = SubResource( 8 )
+color_ramp = SubResource( 9 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
