@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://Mob.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Menu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/art/House In a Forest Loop.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/art/gameover.wav" type="AudioStream" id=6]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1020, 0, 0, 0, 0, 0, 1020, 600, 0, 0, 0, 0, 0, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1020, 0 )
+}
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 1 )
+Mob = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1030.0
+margin_bottom = 600.0
+color = Color( 0.481018, 0.601797, 0.832031, 1 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+CLAMP = true
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="ScoreTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+
+[node name="Menu" parent="." instance=ExtResource( 4 )]
+
+[node name="StartPosition" type="Position2D" parent="."]
+position = Vector2( 512, 300 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -12.0
+
+[node name="DeadSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -12.0
