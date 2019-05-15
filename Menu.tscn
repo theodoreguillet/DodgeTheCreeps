@@ -15,8 +15,8 @@ font_data = ExtResource( 2 )
 size = 40
 font_data = ExtResource( 2 )
 
-[sub_resource type="InputEventAction" id=4]
-action = "ui_accept"
+[sub_resource type="InputEventKey" id=4]
+scancode = 32
 
 [sub_resource type="ShortCut" id=5]
 shortcut = SubResource( 4 )

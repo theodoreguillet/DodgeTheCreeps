@@ -16,18 +16,6 @@ func _ready():
 	$Particles2D.emitting = false
 	
 	screenSize = get_viewport_rect().size
-	
-	velocity.x = 0
-	velocity.y = 0
-	
-	if Input.is_action_pressed("ui_right") :
-		velocity.x += 1
-	if Input.is_action_pressed("ui_left") :
-		velocity.x -= 1
-	if Input.is_action_pressed("ui_down") :
-		velocity.y += 1
-	if Input.is_action_pressed("ui_up") :
-		velocity.y -= 1
 		
 	connect("body_entered", self, "onBodyEntered")
 
@@ -38,13 +26,13 @@ func _process(delta):
 	velocity.x = 0
 	velocity.y = 0
 	
-	if Input.is_action_pressed("ui_right") :
+	if Input.is_key_pressed(KEY_RIGHT) : # right
 		velocity.x += 1
-	if Input.is_action_pressed("ui_left") :
+	if Input.is_key_pressed(KEY_LEFT) : # left
 		velocity.x -= 1
-	if Input.is_action_pressed("ui_down") :
+	if Input.is_key_pressed(KEY_DOWN) : # down
 		velocity.y += 1
-	if Input.is_action_pressed("ui_up") :
+	if Input.is_key_pressed(KEY_UP) : # up
 		velocity.y -= 1
 		
 	if velocity.length() > 0 :
