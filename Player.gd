@@ -59,7 +59,8 @@ func _process(delta):
 		$AnimatedSprite.animation = "droite" if velocity.x != 0 else "haut"
 		$AnimatedSprite.flip_h = velocity.x < 0
 		$AnimatedSprite.flip_v = velocity.y > 0
-		$Particles2D.emitting = true
+		$Particles2D.emitting = false
+		# $Particles2D.emitting = true
 	else :
 		$Particles2D.emitting = false
 
